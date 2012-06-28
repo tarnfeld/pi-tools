@@ -1,0 +1,3 @@
+[submodule "wwdc-downloader"]
+	path = wwdc-downloader
+	url = git://github.com/jfahrenkrug/WWDC-Downloader.git

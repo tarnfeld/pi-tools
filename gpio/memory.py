@@ -7,6 +7,7 @@ from RPi import GPIO
 PIN_LED = 12
 PIN_BUTTON = 8
 
+
 def setup():
     """Setup the GPIO library / pins"""
 
@@ -17,9 +18,29 @@ def setup():
     # Reset the output LED to off
     GPIO.output(PIN_LED, False)
 
+
 def main():
     """Main function"""
-    blink(5)
+    
+    setup()
+    blink(repeat=5, sleep=0.1)
+    
+    GPIO.output(PIN_LED, True)
+    time.sleep(1)
+    GPIO.output(PIN_LED, False)
+
+    flashes = record(duration=10, feedback=True)
+    time.sleep(1)
+    play(flashes)
+
+
+def record(duration=5, feedback=False):
+    pass
+
+
+def play(flashes):
+    pass
+
 
 def blink(repeat=3, sleep=0.5):
     """Blink the LED the number of tmes passed in as the `repeat` argument"""
@@ -30,8 +51,10 @@ def blink(repeat=3, sleep=0.5):
     while i < repeat:
         GPIO.output(PIN_LED, True)
         time.sleep(sleep)
-
+        GPIO.output(PIN_LED, False)
+        time.sleep(sleep)
         i += 1
+
 
 if __name__ == "__main__":
     main()

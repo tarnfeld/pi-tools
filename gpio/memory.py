@@ -4,22 +4,34 @@ import time
 from RPi import GPIO
 
 # Define the connection pins
-OUTPUT_LED = 12
-INPUT_BUTTON = 8
+PIN_LED = 12
+PIN_BUTTON = 8
 
-# Setup the connections
-GPIO.setup(OUTPUT_LED, GPIO.OUT)
-GPIO.setup(INPUT_BUTTON, GPIO.IN)
+def setup():
+    """Setup the GPIO library / pins"""
 
-GPIO.output(OUTPUT_LED, False)
+    # Setup the connections
+    GPIO.setup(PIN_LED, GPIO.OUT)
+    GPIO.setup(PIN_BUTTON, GPIO.IN)
 
-# Main Loop
-while 1:
-  time.sleep(1)
-  GPIO.output(OUTPUT_LED, True)
-  print "On"
-  time.sleep(1)
-  GPIO.output(OUTPUT_LED, False)
-  print "Off"
-  print "Button Status:", GPIO.input(INPUT_BUTTON)
+    # Reset the output LED to off
+    GPIO.output(PIN_LED, False)
 
+def main():
+    """Main function"""
+    blink(5)
+
+def blink(repeat=3, sleep=0.5):
+    """Blink the LED the number of tmes passed in as the `repeat` argument"""
+
+    GPIO.output(PIN_LED, False)
+
+    i = 0
+    while i < repeat:
+        GPIO.output(PIN_LED, True)
+        time.sleep(sleep)
+
+        i += 1
+
+if __name__ == "__main__":
+    main()

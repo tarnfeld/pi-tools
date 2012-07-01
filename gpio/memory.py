@@ -32,18 +32,39 @@ def main():
     time.sleep(2)
     GPIO.output(PIN_LED, False)
 
-    # flashes = record(duration=10, feedback=True)
-    # time.sleep(1)
-    # play(flashes)
+    flashes = record(duration=10, feedback=True)
+    time.sleep(1)
+    play(flashes)
 
 
 def record(duration=5, feedback=False):
     """Record a dictionary for the number of seconds passed in as the `duration` argument
     that keeps a key:value of the start:end time each time PIN_BUTTON was pressed"""
-    pass
-    # input_data = {}
-    # recorded_seconds = 0
-    # while recorded_seconds
+
+    input_data = []
+    recorded_seconds = 0
+
+    start_time = None
+    end_time = None
+
+    while recorded_seconds != duration:
+        t = time.time()
+
+        if end_time == t:
+            continue
+
+        if GPIO.input(PIN_BUTTON):
+            if start_time == None:
+                start_time = t
+            end_time = t
+        else:
+            if start_time and end_time:
+                print "ended session save the data"
+
+            start_time = None
+            end_time = None
+
+        recorded_seconds += 1
 
 
 def play(flashes):
